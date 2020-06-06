@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, View, Button} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {StyleSheet, TextInput, View, Button, Modal} from 'react-native';
 
 export interface TodoItemProps {
   id: string;
@@ -8,43 +7,80 @@ export interface TodoItemProps {
 }
 
 interface Props {
+  visible: boolean;
+  onCancel: () => void;
   handler: (todo: string) => void;
 }
 
-const TodoInput: React.FunctionComponent<Props> = ({handler}) => {
+const TodoInput: React.FunctionComponent<Props> = ({
+  handler,
+  visible,
+  onCancel,
+}) => {
   const [todo, setTodo] = useState<string>('');
 
-  return (
-    <View style={styles.sectionContainer}>
-      <TextInput
-        style={styles.sectionTextInput}
-        placeholder="Todo"
-        onChangeText={setTodo}
-        value={todo}
-      />
+  const addTodoHandler = () => {
+    handler(todo);
+    setTodo('');
+  };
 
-      <View style={styles.buttonContainer}>
-        <Button title="ADD" onPress={() => handler(todo)} color="white" />
+  const cancelTodoHandler = () => {
+    onCancel();
+    setTodo('');
+  };
+
+  return (
+    <Modal animationType="slide" visible={visible}>
+      <View style={styles.modalWrapper}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Todo"
+          onChangeText={setTodo}
+          value={todo}
+        />
+
+        <View style={styles.buttonsWrapper}>
+          <View style={styles.addButtonContainer}>
+            <Button title="ADD" onPress={addTodoHandler} color="white" />
+          </View>
+
+          <View style={styles.cancelButtonContainer}>
+            <Button title="Cancel" onPress={cancelTodoHandler} color="white" />
+          </View>
+        </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionTextInput: {
-    padding: 8,
-    color: Colors.dark,
-    borderColor: Colors.dark,
-    borderWidth: 1,
+  textInput: {
+    padding: 16,
+    color: 'black',
+    borderColor: 'black',
+    borderRadius: 5,
+    width: '100%',
+    marginBottom: 14,
+    backgroundColor: '#ccc',
+  },
+  modalWrapper: {
+    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
-  sectionContainer: {
-    marginTop: 34,
-    padding: 24,
+  buttonsWrapper: {
     flexDirection: 'row',
   },
-  buttonContainer: {
+  addButtonContainer: {
+    padding: 1,
     backgroundColor: 'black',
+    borderRadius: 2,
+  },
+  cancelButtonContainer: {
+    padding: 1,
+    backgroundColor: 'orange',
+    borderRadius: 2,
   },
 });
 

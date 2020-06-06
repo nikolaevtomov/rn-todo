@@ -5,8 +5,8 @@ import {
   Text,
   TouchableOpacity,
   ListRenderItemInfo,
+  Button,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {TodoItemProps} from './todo-input';
 
 interface Props {
@@ -16,22 +16,33 @@ interface Props {
 
 export const TodoItem: React.FunctionComponent<Props> = ({data, onDelete}) => {
   return (
-    <TouchableOpacity onPress={onDelete} activeOpacity={0.8}>
-      <View style={styles.listItem}>
-        <Text>{data.item.value}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.listItem}>
+      <Text style={styles.listItemText}>{data.item.value}</Text>
+
+      <TouchableOpacity style={styles.buttonWrapper} activeOpacity={0.8}>
+        <Button color="white" title="X" onPress={onDelete} />
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   listItem: {
     paddingVertical: 6,
-    paddingHorizontal: 4,
-    marginHorizontal: 24,
+    paddingHorizontal: 6,
+    marginHorizontal: 0,
     borderWidth: 1,
-    borderColor: Colors.dark,
-    marginVertical: 4,
+    borderColor: 'black',
+    marginVertical: 6,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listItemText: {
+    flex: 1,
+  },
+  buttonWrapper: {
+    backgroundColor: 'black',
   },
 });
 
