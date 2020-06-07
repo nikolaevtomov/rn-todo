@@ -28,15 +28,13 @@ export const TodoItem: React.FunctionComponent<Props> = ({data, onDelete}) => {
 
 const styles = StyleSheet.create({
   listItem: {
-    paddingVertical: 6,
-    paddingHorizontal: 6,
-    marginHorizontal: 0,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginVertical: 6,
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginVertical: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 6,
+    borderWidth: 1,
+    borderColor: 'black',
   },
   listItemText: {
     flex: 1,

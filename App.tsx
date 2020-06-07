@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, FlatList, View, Button} from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Button,
+  ListRenderItemInfo,
+} from 'react-native';
 import TodoInput, {TodoItemProps} from './components/todo-input';
 import TodoItem from './components/todo-item';
 
@@ -7,13 +13,13 @@ const App: React.FunctionComponent = () => {
   const [todos, setTodo] = useState<Array<TodoItemProps>>([]);
   const [visible, setVisibility] = useState<boolean>(false);
 
-  const addTodoHandler = (item: string) => {
-    setTodo([...todos, {id: Math.random().toString(), value: item}]);
+  const addTodoHandler = (todo: string) => {
+    setTodo([...todos, {id: Math.random().toString(), value: todo}]);
     setVisibility(false);
   };
 
   const removeTodoHandler = (id: string) => {
-    setTodo([...todos.filter((todo) => todo.id !== id)]);
+    setTodo([...todos.filter((todo: TodoItemProps) => todo.id !== id)]);
   };
 
   const cancelAddTodoHandler = () => {
@@ -38,8 +44,8 @@ const App: React.FunctionComponent = () => {
 
       <FlatList
         data={todos}
-        keyExtractor={(data) => data.id}
-        renderItem={(data) => (
+        keyExtractor={(data: TodoItemProps) => data.id}
+        renderItem={(data: ListRenderItemInfo<TodoItemProps>) => (
           <TodoItem
             onDelete={() => removeTodoHandler(data.item.id)}
             data={data}

@@ -55,19 +55,19 @@ const TodoInput: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   textInput: {
+    width: '100%',
+    marginBottom: 14,
     padding: 16,
     color: 'black',
     borderColor: 'black',
     borderRadius: 5,
-    width: '100%',
-    marginBottom: 14,
     backgroundColor: '#dedede',
   },
   modalWrapper: {
-    padding: 24,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
+    padding: 24,
   },
   buttonsWrapper: {
     flexDirection: 'row',
